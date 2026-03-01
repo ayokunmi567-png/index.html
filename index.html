@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ayomi ❤️</title>
+<style>
+body {
+    margin:0;
+    font-family: 'Segoe UI', sans-serif;
+    background:#121212;
+    color:#fdd835; /* soft gold */
+    text-align:center;
+    overflow-x:hidden;
+}
+
+h1, h2, p {
+    margin:20px 0;
+}
+
+button {
+    padding:15px 30px;
+    font-size:18px;
+    border:none;
+    border-radius:30px;
+    background:#fdd835;
+    color:#121212;
+    cursor:pointer;
+    margin:10px;
+    position:relative;
+    transition:0.3s;
+}
+
+button:hover {
+    background:#fff176;
+}
+
+.hidden {
+    display:none;
+}
+
+#letter {
+    max-width: 600px;
+    margin: auto;
+    font-size: 20px;
+    line-height: 1.6;
+    opacity:0;
+}
+
+#screenshot {
+    width:90%;
+    max-width:500px;
+    margin:20px auto;
+    border-radius:15px;
+    opacity:0;
+}
+
+#gallery img {
+    width:200px;
+    height:250px;
+    object-fit:cover;
+    margin:10px;
+    border-radius:15px;
+    opacity:0;
+    transition:1s;
+}
+</style>
+</head>
+<body>
+
+<!-- Entry Gate -->
+<div id="gate">
+    <h1>You can only open this link if you love Ayokunmi ❤️</h1>
+    <button id="start">I Love Him 💛</button>
+    <button id="noBtn">No</button>
+</div>
+
+<!-- Confirmation Steps -->
+<div id="confirm" class="hidden">
+    <h2 id="confirmText">Do you love him?</h2>
+    <button id="yesBtn">Yes</button>
+    <button id="noBtn2">No</button>
+</div>
+
+<!-- Letter Section -->
+<div id="letterSection" class="hidden">
+    <div id="letter"></div>
+    <img id="screenshot" src="screenshot.jpg">
+</div>
+
+<!-- Gallery -->
+<div id="gallery" class="hidden">
+    <img src="photo1.jpg">
+    <img src="photo2.jpg">
+    <img src="photo3.jpg">
+</div>
+
+<!-- Music -->
+<audio id="music" src="music.mp3"></audio>
+
+<script>
+let confirmations = [
+    "Do you love him?",
+    "Are you sure you love him?",
+    "Do you really love Ayokunmi?",
+    "Absolutely sure you love him?",
+    "Last chance… do you love him?"
+];
+let index = 0;
+
+// Start Gate
+const startBtn = document.getElementById("start");
+const noBtn = document.getElementById("noBtn");
+const gate = document.getElementById("gate");
+const confirmDiv = document.getElementById("confirm");
+const confirmText = document.getElementById("confirmText");
+const yesBtn = document.getElementById("yesBtn");
+const noBtn2 = document.getElementById("noBtn2");
+const letterDiv = document.getElementById("letterSection");
+const letter = document.getElementById("letter");
+const screenshot = document.getElementById("screenshot");
+const gallery = document.getElementById("gallery");
+const music = document.getElementById("music");
+
+// Runaway "No" button on gate
+noBtn.addEventListener("mouseover", ()=>{
+    noBtn.style.left = Math.random()*80+"vw";
+    noBtn.style.top = Math.random()*50+"vh";
+    noBtn.style.position="absolute";
+});
+
+// Start button triggers first confirmation and music
+startBtn.addEventListener("click", ()=>{
+    gate.classList.add("hidden");
+    confirmDiv.classList.remove("hidden");
+    music.play();
+});
+
+// Confirmation yes button
+yesBtn.addEventListener("click", ()=>{
+    index++;
+    if(index < confirmations.length){
+        confirmText.textContent = confirmations[index];
+    }else{
+        confirmDiv.classList.add("hidden");
+        showLetter();
+    }
+});
+
+// Runaway "No" button in confirmation
+noBtn2.addEventListener("mouseover", ()=>{
+    noBtn2.style.left = Math.random()*80+"vw";
+    noBtn2.style.top = Math.random()*50+"vh";
+    noBtn2.style.position="absolute";
+});
+
+// Letter typing effect
+function showLetter(){
+    letterDiv.classList.remove("hidden");
+    let text = `Hiiii Ayomi, I was bored so I just thought I should let you know how special you are to me. I really love you and I’m so glad that you’re in my life. Our love story started on Thursday 15 of January. I never knew just a hi could begin our love story and make me love you this much. I love you.`;
+    let i=0;
+    letter.style.opacity=1;
+    function type(){
+        if(i<text.length){
+            letter.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(type,50);
+        }else{
+            // Show screenshot after typing
+            screenshot.style.opacity=1;
+            setTimeout(showGallery,1000);
+        }
+    }
+    type();
+}
+
+// Show gallery pictures
+function showGallery(){
+    gallery.classList.remove("hidden");
+    const imgs = gallery.querySelectorAll("img");
+    imgs.forEach((img,i)=>{
+        setTimeout(()=>{
+            img.style.opacity=1;
+        }, i*500);
+    });
+}
+</script>
+
+</body>
+</html>
